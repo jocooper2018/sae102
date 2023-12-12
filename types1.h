@@ -11,7 +11,7 @@
         int nbCandidats;
     } t_case1;
 
-    typedef t_case1 t_grille[TAILLE_GRILLE][TAILLE_GRILLE];
+    typedef t_case1 t_grille1[TAILLE_GRILLE][TAILLE_GRILLE];
 
 
 #endif

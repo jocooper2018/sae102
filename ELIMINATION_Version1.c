@@ -9,7 +9,7 @@
 
 int main()
 {
-    t_grille grille;
+    t_grille1 grille;
     int nbCasesVide;
     bool progression = true;
 
@@ -85,7 +85,7 @@ int main()
 
 int main2()
 {
-    t_grille grille;
+    t_grille1 grille;
     int nbCasesVide;
     bool progression = true;
 

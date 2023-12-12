@@ -6,7 +6,7 @@
 #include "types1.h"
 
 
-bool chargerGrille(t_grille grille)
+bool chargerGrille(t_grille1 grille)
 {
     bool fileLoadSuccess;
     int grilleTmp[TAILLE_GRILLE][TAILLE_GRILLE];
@@ -48,7 +48,7 @@ bool chargerGrille(t_grille grille)
 }
 
 
-void initialiserCandidats(t_grille grille)
+void initialiserCandidats(t_grille1 grille)
 {
     for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
     {
@@ -75,7 +75,7 @@ void initialiserCandidats(t_grille grille)
 }
 
 
-int getNbCaseVides(t_grille grille)
+int getNbCaseVides(t_grille1 grille)
 {
     int nbCaseVides = 0;
 
@@ -143,11 +143,11 @@ int nbCandidats(t_case1 laCase)
 
 
 /**
- * @fn void afficherGrille(t_grille grille)
- * @param grille `t_grille` Grille a afficher.
+ * @fn void afficherGrille(t_grille1 grille)
+ * @param grille `t_grille1` Grille a afficher.
  * @brief Affiche la grille passe en parametre.
 */
-void afficherGrille(t_grille grille)
+void afficherGrille(t_grille1 grille)
 {
     // printf("     1  2  3   4  5  6   7  8  9\n");
     printf("   ");
@@ -209,8 +209,8 @@ void afficherGrille(t_grille grille)
 
 
 /**
- * @fn bool possible(t_grille grille, int numLigne, int numColone, int valeur)
- * @param grille `t_grille` Grille dans laquelle on veut savoir si il est 
+ * @fn bool possible(t_grille1 grille, int numLigne, int numColone, int valeur)
+ * @param grille `t_grille1` Grille dans laquelle on veut savoir si il est 
  * possible d'inserer une valeur.
  * @param numLigne `int` Numero de la ligne ou inserer une valeur.
  * @param numColone `int` Numero de la colone ou inserer une valeur.
@@ -220,7 +220,7 @@ void afficherGrille(t_grille grille)
  * @brief Permet de verifier si il est possible d'inserer une valeur a un 
  * certain emplacement d'une grille donnee sans enfreindre les regles du sudoku.
 */
-bool possible(t_grille grille, int numLigne, int numColone, int valeur)
+bool possible(t_grille1 grille, int numLigne, int numColone, int valeur)
 {
     bool peutInserer = true;
     int i, j;
