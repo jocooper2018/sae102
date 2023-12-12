@@ -1,0 +1,10 @@
+
+#ifndef DEFINES_H
+    #define DEFINES_H
+
+    #define TAILLE_SOUS_GRILLE 3
+    #define TAILLE_GRILLE (TAILLE_SOUS_GRILLE*TAILLE_SOUS_GRILLE)
+    #define NBR_SOUS_GRILLE TAILLE_SOUS_GRILLE
+
+#endif
+
