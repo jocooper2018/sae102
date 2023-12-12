@@ -117,13 +117,11 @@ bool chargerGrille(t_grille grille)
     if (f == NULL)
     {
         printf("\n ERREUR sur le fichier %s\n", nomFichier);
-        fclose(f);
         fileLoadSuccess = false;
     } 
     else 
     {
         fread(grilleTmp, sizeof(int), TAILLE_GRILLE*TAILLE_GRILLE, f);
-        fclose(f);
         fileLoadSuccess = true;
 
         for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
@@ -134,6 +132,13 @@ bool chargerGrille(t_grille grille)
             }
         }
     }
+
+    if (!feof(f))
+    {
+        fileLoadSuccess = false;
+    }
+
+    fclose(f);
 
     return fileLoadSuccess;
 }
