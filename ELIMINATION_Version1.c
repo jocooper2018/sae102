@@ -59,7 +59,7 @@ int main()
                 {
 
                     grille[numLigne][numCol].valeur = grille[numLigne][numCol].candidats[0];
-                    printf("%d\n", grille[numLigne][numCol].candidats[0]);
+                    printf("%d\n", grille[numLigne][numCol].nbCandidats);
                     for (int i = 0; i < TAILLE_GRILLE; i++)
                     {
                         retirerCandidat(grille[numLigne][i], grille[numLigne][numCol].valeur);
@@ -102,6 +102,36 @@ int main()
 }
 
 
+int main2()
+{
+    t_grille grille;
+    int nbCasesVide;
+    bool progression = true;
+
+    bool grilleCharge = false;
+    while (!grilleCharge)
+    {
+        grilleCharge = chargerGrille(grille);
+    }
+
+    afficherGrille(grille);
+
+    nbCasesVide = getNbCaseVides(grille);
+    printf("%d cases vides\n", nbCasesVide);
+
+    initialiserCandidats(grille);
+
+    printf("nbCandidats : %d\ncandidats : ", grille[0][1].nbCandidats);
+    for (int i = 0; i < TAILLE_GRILLE; i++)
+    {
+        printf("%d ", grille[0][1].candidats[i]);
+    }
+    printf("\n");
+
+    return EXIT_SUCCESS;
+}
+
+
 bool chargerGrille(t_grille grille)
 {
     bool fileLoadSuccess;
@@ -132,12 +162,12 @@ bool chargerGrille(t_grille grille)
             }
         }
     }
-
+    /*
     if (!feof(f))
     {
         fileLoadSuccess = false;
     }
-
+    */
     fclose(f);
 
     return fileLoadSuccess;
@@ -153,6 +183,10 @@ void initialiserCandidats(t_grille grille)
             grille[numLigne][numCol].nbCandidats = 0;
             if (grille[numLigne][numCol].valeur == 0)
             {
+                for (int i = 0; i < TAILLE_GRILLE; i++)
+                {
+                    grille[numLigne][numCol].candidats[i] = 0;
+                }
                 for (int candidat = 1; candidat <= TAILLE_GRILLE; candidat++)
                 {
                     if (possible(grille, numLigne, numCol, candidat))
@@ -188,8 +222,8 @@ int getNbCaseVides(t_grille grille)
 
 void ajouterCandidat(t_case1 *laCase, int valeur)
 {
-    laCase->nbCandidats++;
     laCase->candidats[laCase->nbCandidats] = valeur;
+    laCase->nbCandidats++;
 }
 
 
