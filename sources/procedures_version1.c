@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "defines.h"
-#include "types1.h"
+#include "../includes/defines.h"
+#include "../includes/types1.h"
+#include "../includes/procedures_version1.h"
 
 
 bool chargerGrille(t_grille1 grille)
