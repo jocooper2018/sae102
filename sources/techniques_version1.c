@@ -8,12 +8,32 @@
 #include "../includes/techniques_version1.h"
 
 
+int nbOccurenceCandidatLigne(t_grille1 grille, int numLigne, int candidat)
+{
+    int nbOccurence = 0;
+
+    for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)
+    {
+        int nbCandidats = grille[numLigne][numCol].nbCandidats;
+        for (int i = 0; i < nbCandidats; i++)
+        {
+            if (grille[numLigne][numCol].candidats[i] == candidat)
+            {
+                nbOccurence++;
+            }
+        }
+    }
+
+    return nbCandidats;
+}
+
+
 void singletonNu(t_grille1 grille, int *nbCasesVide, bool *progression)
 {
     // technique du singleton nu
     for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
     {
-        for (int numCol = 0; numCol <TAILLE_GRILLE; numCol++)
+        for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)
         {
             if ((grille[numLigne][numCol].valeur == 0) &&
                 grille[numLigne][numCol].nbCandidats == 1)
@@ -47,3 +67,18 @@ void singletonNu(t_grille1 grille, int *nbCasesVide, bool *progression)
     }
 }
 
+/*
+void singletonCache(t_grille1 grille, int *nbCasesVide, bool *progression)
+{
+    for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
+    {
+        for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)
+        {
+            int nbCandidats = grille[numLigne][numCol].nbCandidats;
+            for (int numCandidat = 0; numCandidat < nbCandidats; numCandidat++)
+            {
+                //
+            }
+        }
+    }
+}*/
