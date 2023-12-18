@@ -47,14 +47,36 @@ int nbOccurenceCandidatColonne(t_grille1 grille, int numCol, int candidat)
     return nbOccurence;
 }
 
-/*
-int nbOccurenceCandidatBlock(t_grille1 grille, int numCol, int candidat)
+
+int nbOccurenceCandidatBlock(t_grille1 grille, int numLigne, int numCol, int candidat)
 {
     int nbOccurence = 0;
 
+    int coordonneeXBlock = (numLigne / NBR_SOUS_GRILLE) * NBR_SOUS_GRILLE;
+    int coordonneeYBlock = (numCol / NBR_SOUS_GRILLE) * NBR_SOUS_GRILLE;
+
+    for (int numLigneBlock = coordonneeXBlock; 
+         numLigneBlock < coordonneeXBlock + TAILLE_SOUS_GRILLE; 
+         numLigneBlock++)
+    {
+        for (int numColBlock = coordonneeYBlock;
+             numColBlock < coordonneeYBlock + TAILLE_SOUS_GRILLE;
+             numColBlock++)
+        {
+            int nbCandidats = grille[numLigne][numCol].nbCandidats;
+            for (int i = 0; i < nbCandidats; i++)
+            {
+                if (grille[numLigneBlock][numColBlock].candidats[i] == candidat)
+                {
+                    nbOccurence++;
+                }
+            }
+        }
+    }
+
     return nbOccurence;
 }
-*/
+
 
 void singletonNu(t_grille1 grille, int *nbCasesVide, bool *progression)
 {
