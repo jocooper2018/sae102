@@ -24,7 +24,7 @@ int nbOccurenceCandidatLigne(t_grille1 grille, int numLigne, int candidat)
         }
     }
 
-    return nbCandidats;
+    return nbOccurence;
 }
 
 
@@ -44,9 +44,17 @@ int nbOccurenceCandidatColonne(t_grille1 grille, int numCol, int candidat)
         }
     }
 
-    return nbCandidats;
+    return nbOccurence;
 }
 
+/*
+int nbOccurenceCandidatBlock(t_grille1 grille, int numCol, int candidat)
+{
+    int nbOccurence = 0;
+
+    return nbOccurence;
+}
+*/
 
 void singletonNu(t_grille1 grille, int *nbCasesVide, bool *progression)
 {
