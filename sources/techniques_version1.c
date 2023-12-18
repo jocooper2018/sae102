@@ -28,6 +28,26 @@ int nbOccurenceCandidatLigne(t_grille1 grille, int numLigne, int candidat)
 }
 
 
+int nbOccurenceCandidatColonne(t_grille1 grille, int numCol, int candidat)
+{
+    int nbOccurence = 0;
+
+    for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
+    {
+        int nbCandidats = grille[numLigne][numCol].nbCandidats;
+        for (int i = 0; i < nbCandidats; i++)
+        {
+            if (grille[numLigne][numCol].candidats[i] == candidat)
+            {
+                nbOccurence++;
+            }
+        }
+    }
+
+    return nbCandidats;
+}
+
+
 void singletonNu(t_grille1 grille, int *nbCasesVide, bool *progression)
 {
     // technique du singleton nu

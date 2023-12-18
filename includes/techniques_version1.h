@@ -5,6 +5,7 @@
     //void singletonCache(t_grille1 grille, int *nbCasesVide, bool *progression);
 
     int nbOccurenceCandidatLigne(t_grille1 grille, int numLigne, int candidat);
+    int nbOccurenceCandidatColonne(t_grille1 grille, int numCol, int candidat);
 
 #endif
 
