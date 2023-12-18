@@ -78,6 +78,32 @@ int nbOccurenceCandidatBlock(t_grille1 grille, int numLigne, int numCol, int can
 }
 
 
+void accepterCandidat(t_grille1 grille, int numLigne, int numCol, int candidat)
+{
+    grille[numLigne][numCol].valeur = candidat;
+    for (int i = 0; i < TAILLE_GRILLE; i++)
+    {
+        retirerCandidat(grille[numLigne][i], grille[numLigne][numCol].valeur);
+        retirerCandidat(grille[i][numCol], grille[numLigne][numCol].valeur);
+    }
+    int i, j;
+    int iMax, jMax;
+    i = (numLigne / NBR_SOUS_GRILLE) * NBR_SOUS_GRILLE;
+    iMax = i + TAILLE_SOUS_GRILLE;
+    while (i < iMax)
+    {
+        j = (numCol / NBR_SOUS_GRILLE) * NBR_SOUS_GRILLE;
+        jMax = j + TAILLE_SOUS_GRILLE;
+        while (j < jMax)
+        {
+            retirerCandidat(grille[i][j], grille[numLigne][numCol].valeur);
+            j++;
+        }
+        i++;
+    }
+}
+
+
 void singletonNu(t_grille1 grille, int *nbCasesVide, bool *progression)
 {
     // technique du singleton nu
@@ -86,30 +112,9 @@ void singletonNu(t_grille1 grille, int *nbCasesVide, bool *progression)
         for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)
         {
             if ((grille[numLigne][numCol].valeur == 0) &&
-                grille[numLigne][numCol].nbCandidats == 1)
+                (grille[numLigne][numCol].nbCandidats == 1))
             {
-
-                grille[numLigne][numCol].valeur = grille[numLigne][numCol].candidats[0];
-                for (int i = 0; i < TAILLE_GRILLE; i++)
-                {
-                    retirerCandidat(grille[numLigne][i], grille[numLigne][numCol].valeur);
-                    retirerCandidat(grille[i][numCol], grille[numLigne][numCol].valeur);
-                }
-                int i, j;
-                int iMax, jMax;
-                i = (numLigne / NBR_SOUS_GRILLE) * NBR_SOUS_GRILLE;
-                iMax = i + TAILLE_SOUS_GRILLE;
-                while (i < iMax)
-                {
-                    j = (numCol / NBR_SOUS_GRILLE) * NBR_SOUS_GRILLE;
-                    jMax = j + TAILLE_SOUS_GRILLE;
-                    while (j < jMax)
-                    {
-                        retirerCandidat(grille[i][j], grille[numLigne][numCol].valeur);
-                        j++;
-                    }
-                    i++;
-                }
+                accepterCandidat(grille, numLigne, numCol, grille[numLigne][numCol].candidats[0]);
                 (*nbCasesVide)--;
                 *progression = true;
             }
@@ -117,9 +122,11 @@ void singletonNu(t_grille1 grille, int *nbCasesVide, bool *progression)
     }
 }
 
-/*
+
 void singletonCache(t_grille1 grille, int *nbCasesVide, bool *progression)
 {
+    int candidat;
+
     for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
     {
         for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)
@@ -127,8 +134,17 @@ void singletonCache(t_grille1 grille, int *nbCasesVide, bool *progression)
             int nbCandidats = grille[numLigne][numCol].nbCandidats;
             for (int numCandidat = 0; numCandidat < nbCandidats; numCandidat++)
             {
-                //
+                candidat = grille[numLigne][numCol].candidats[numCandidat];
+                if ((nbOccurenceCandidatLigne(grille, numLigne, candidat) == 1) ||
+                    (nbOccurenceCandidatColonne(grille, numCol, candidat) == 1) ||
+                    (nbOccurenceCandidatBlock(grille, numLigne, numCol, candidat == 1)))
+                {
+                    accepterCandidat(grille, numLigne, numCol, candidat);
+                    (*nbCasesVide)--;
+                    *progression = true;
+                }
             }
         }
     }
-}*/
+}
+
