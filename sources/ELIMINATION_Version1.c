@@ -31,8 +31,8 @@ int main()
     {
         progression = false;
 
-        // technique du singleton nu
         singletonNu(grille, &nbCasesVide, &progression);
+        singletonCache(grille, &nbCasesVide, &progression);
 
         if (progression)
         {
