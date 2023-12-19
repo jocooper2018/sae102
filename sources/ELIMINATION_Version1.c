@@ -6,6 +6,7 @@
 #include "../includes/types1.h"
 #include "../includes/procedures_version1.h"
 #include "../includes/techniques_version1.h"
+#include "../includes/tests_version1.h"
 
 
 int main()
@@ -32,7 +33,7 @@ int main()
         progression = false;
 
         singletonNu(grille, &nbCasesVide, &progression);
-        singletonCache(grille, &nbCasesVide, &progression);
+        //singletonCache(grille, &nbCasesVide, &progression);
 
         if (progression)
         {

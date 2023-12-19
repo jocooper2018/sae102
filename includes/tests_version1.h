@@ -6,10 +6,11 @@
     #include "types1.h"
 
     
-    bool testLigne(int numLigne);
-    bool testColonnes(int numCol);
-    bool testBlock(int numLigne, int numCol);
-    bool testCase(t_case1 laCase);
+    bool testLigne(t_grille1 grille, int numLigne);
+    bool testColonne(t_grille1 grille, int numCol);
+    bool testBlock(t_grille1 grille, int numLigne, int numCol);
+    bool testCase(t_grille1 grille, int numLigne, int numCol);
+    bool testGrille(t_grille1 grille);
 
 #endif
 

@@ -142,8 +142,6 @@ void singletonCache(t_grille1 grille, int *nbCasesVide, bool *progression)
                     (nbOccurenceCandidatColonne(grille, numCol, candidat) == 1) ||
                     (nbOccurenceCandidatBlock(grille, numLigne, numCol, candidat == 1)))
                 {
-                    //printf("Nb occurences candidat %d lignge %d : %d\n", candidat, numLigne, nbOccurenceCandidatLigne(grille, numLigne, candidat));
-
                     accepterCandidat(grille, numLigne, numCol, candidat);
                     (*nbCasesVide)--;
                     *progression = true;
