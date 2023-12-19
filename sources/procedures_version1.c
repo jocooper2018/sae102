@@ -102,10 +102,10 @@ void ajouterCandidat(t_case1 *laCase, int valeur)
 }
 
 
-void retirerCandidat(t_case1 laCase, int valeur)
+void retirerCandidat(t_case1 *laCase, int valeur)
 {
     int i = 0;
-    while ((laCase.candidats[i] != valeur) && (i < TAILLE_GRILLE))
+    while ((laCase->candidats[i] != valeur) && (i < TAILLE_GRILLE))
     {
         i++;
     }
@@ -113,10 +113,19 @@ void retirerCandidat(t_case1 laCase, int valeur)
     {
         while (i < TAILLE_GRILLE - 1)
         {
-            laCase.candidats[i] = laCase.candidats[i + 1];
+            laCase->candidats[i] = laCase->candidats[i + 1];
             i++;
         }
-        laCase.nbCandidats--;
+        laCase->nbCandidats--;
+    }
+}
+
+
+void retirerTousLesCandidat(t_case1 *laCase)
+{
+    while (nbCandidats(*laCase) > 0)
+    {
+        retirerCandidat(laCase, laCase->candidats[0]);
     }
 }
 

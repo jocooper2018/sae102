@@ -81,10 +81,13 @@ int nbOccurenceCandidatBlock(t_grille1 grille, int numLigne, int numCol, int can
 void accepterCandidat(t_grille1 grille, int numLigne, int numCol, int candidat)
 {
     grille[numLigne][numCol].valeur = candidat;
+
+    retirerTousLesCandidat(&grille[numLigne][numCol]);
+
     for (int i = 0; i < TAILLE_GRILLE; i++)
     {
-        retirerCandidat(grille[numLigne][i], grille[numLigne][numCol].valeur);
-        retirerCandidat(grille[i][numCol], grille[numLigne][numCol].valeur);
+        retirerCandidat(&grille[numLigne][i], grille[numLigne][numCol].valeur);
+        retirerCandidat(&grille[i][numCol], grille[numLigne][numCol].valeur);
     }
     int i, j;
     int iMax, jMax;
@@ -96,7 +99,7 @@ void accepterCandidat(t_grille1 grille, int numLigne, int numCol, int candidat)
         jMax = j + TAILLE_SOUS_GRILLE;
         while (j < jMax)
         {
-            retirerCandidat(grille[i][j], grille[numLigne][numCol].valeur);
+            retirerCandidat(&grille[i][j], grille[numLigne][numCol].valeur);
             j++;
         }
         i++;
@@ -139,6 +142,8 @@ void singletonCache(t_grille1 grille, int *nbCasesVide, bool *progression)
                     (nbOccurenceCandidatColonne(grille, numCol, candidat) == 1) ||
                     (nbOccurenceCandidatBlock(grille, numLigne, numCol, candidat == 1)))
                 {
+                    //printf("Nb occurences candidat %d lignge %d : %d\n", candidat, numLigne, nbOccurenceCandidatLigne(grille, numLigne, candidat));
+
                     accepterCandidat(grille, numLigne, numCol, candidat);
                     (*nbCasesVide)--;
                     *progression = true;

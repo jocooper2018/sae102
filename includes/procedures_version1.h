@@ -10,7 +10,8 @@
     void initialiserCandidats(t_grille1 grille);
     int getNbCaseVides(t_grille1 grille);
     void ajouterCandidat(t_case1 *laCase, int valeur);
-    void retirerCandidat(t_case1 laCase, int valeur);
+    void retirerCandidat(t_case1 *laCase, int valeur);
+    void retirerTousLesCandidat(t_case1 *laCase);
     bool estCandidat(t_case1 laCase, int valeur);
     int nbCandidats(t_case1 laCase);
     void afficherGrille(t_grille1 grille);
