@@ -52,16 +52,16 @@ bool chargerGrille(t_grille2 grille)
 void initialiserCandidats(t_grille2 grille)
 {
     for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
-    {
-        for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)
+    {                                                               // case
+        for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)      
         {
-            if (grille[numLigne][numCol].valeur == 0)
+            for (int i = 1; i <= TAILLE_GRILLE; i++)             // init
             {
-                for (int i = 0; i < TAILLE_GRILLE; i++)
-                {
-                    grille[numLigne][numCol].candidats[i] = false;
-                }
-                for (int candidat = 1; candidat <= TAILLE_GRILLE; candidat++)
+                grille[numLigne][numCol].candidats[i] = false;
+            }
+            if (grille[numLigne][numCol].valeur == 0)               // case vide ?
+            {
+                for (int candidat = 1; candidat <= TAILLE_GRILLE; candidat++)   //
                 {
                     if (possible(grille, numLigne, numCol, candidat))
                     {

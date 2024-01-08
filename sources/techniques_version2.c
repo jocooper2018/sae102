@@ -14,13 +14,9 @@ int nbOccurenceCandidatLigne(t_grille2 grille, int numLigne, int candidat)
 
     for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)
     {
-        int nbCandidats = getNbCandidats(grille[numLigne][numCol]);
-        for (int i = 0; i < nbCandidats; i++)
+        if (grille[numLigne][numCol].candidats[candidat])
         {
-            if (grille[numLigne][numCol].candidats[i] == candidat)
-            {
-                nbOccurence++;
-            }
+            nbOccurence++;
         }
     }
 
@@ -34,13 +30,9 @@ int nbOccurenceCandidatColonne(t_grille2 grille, int numCol, int candidat)
 
     for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
     {
-        int nbCandidats = getNbCandidats(grille[numLigne][numCol]);
-        for (int i = 0; i < nbCandidats; i++)
+        if (grille[numLigne][numCol].candidats[candidat])
         {
-            if (grille[numLigne][numCol].candidats[i] == candidat)
-            {
-                nbOccurence++;
-            }
+            nbOccurence++;
         }
     }
 
@@ -63,13 +55,9 @@ int nbOccurenceCandidatBlock(t_grille2 grille, int numLigne, int numCol, int can
              numColBlock < coordonneeYBlock + TAILLE_SOUS_GRILLE;
              numColBlock++)
         {
-            int nbCandidats = getNbCandidats(grille[numLigne][numCol]);
-            for (int i = 0; i < nbCandidats; i++)
+            if (grille[numLigneBlock][numColBlock].candidats[candidat])
             {
-                if (grille[numLigneBlock][numColBlock].candidats[i] == candidat)
-                {
-                    nbOccurence++;
-                }
+                nbOccurence++;
             }
         }
     }
@@ -80,6 +68,8 @@ int nbOccurenceCandidatBlock(t_grille2 grille, int numLigne, int numCol, int can
 
 void accepterCandidat(t_grille2 grille, int numLigne, int numCol, int candidat)
 {
+    //printf("accepterCandidat(grille, %d, %d, %d)\n", numLigne, numCol, candidat);
+
     grille[numLigne][numCol].valeur = candidat;
 
     retirerTousLesCandidat(&grille[numLigne][numCol]);
@@ -109,7 +99,7 @@ void accepterCandidat(t_grille2 grille, int numLigne, int numCol, int candidat)
 
 void singletonNu(t_grille2 grille, int *nbCasesVide, bool *progression)
 {
-    // technique du singleton nu
+    //printf("technique du singleton nu\n");
     for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
     {
         for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)
@@ -117,7 +107,25 @@ void singletonNu(t_grille2 grille, int *nbCasesVide, bool *progression)
             if ((grille[numLigne][numCol].valeur == 0) &&
                 (getNbCandidats(grille[numLigne][numCol]) == 1))
             {
-                accepterCandidat(grille, numLigne, numCol, grille[numLigne][numCol].candidats[0]);
+                int candidat = 1;
+                bool trouve = false;
+                while (!trouve && candidat <= TAILLE_GRILLE + 1)
+                {
+                    if (grille[numLigne][numCol].candidats[candidat])
+                    {
+                        trouve = true;
+                    }
+                    else 
+                    {
+                        candidat++;
+                    }
+                }
+                if (candidat >= TAILLE_GRILLE + 1)
+                {
+                    printf("Erreur\n");
+                    continue; // passage au tour de boucle suivant : on ne veut pas accepter une valeur errone
+                }
+                accepterCandidat(grille, numLigne, numCol, candidat);
                 (*nbCasesVide)--;
                 *progression = true;
             }
@@ -128,23 +136,23 @@ void singletonNu(t_grille2 grille, int *nbCasesVide, bool *progression)
 
 void singletonCache(t_grille2 grille, int *nbCasesVide, bool *progression)
 {
-    int candidat;
-
+    //printf("technique du singleton cache\n");
     for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
     {
         for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)
         {
-            int nbCandidats = getNbCandidats(grille[numLigne][numCol]);
-            for (int numCandidat = 0; numCandidat < nbCandidats; numCandidat++)
+            for (int numCandidat = 1; numCandidat <= TAILLE_GRILLE; numCandidat++)
             {
-                candidat = grille[numLigne][numCol].candidats[numCandidat];
-                if ((nbOccurenceCandidatLigne(grille, numLigne, candidat) == 1) ||
-                    (nbOccurenceCandidatColonne(grille, numCol, candidat) == 1) ||
-                    (nbOccurenceCandidatBlock(grille, numLigne, numCol, candidat == 1)))
+                if (grille[numLigne][numCol].candidats[numCandidat])
                 {
-                    accepterCandidat(grille, numLigne, numCol, candidat);
-                    (*nbCasesVide)--;
-                    *progression = true;
+                    if ((nbOccurenceCandidatLigne(grille, numLigne, numCandidat) == 1) ||
+                        (nbOccurenceCandidatColonne(grille, numCol, numCandidat) == 1) ||
+                        (nbOccurenceCandidatBlock(grille, numLigne, numCol, numCandidat == 1))/**/)
+                    {
+                        accepterCandidat(grille, numLigne, numCol, numCandidat);
+                        (*nbCasesVide)--;
+                        *progression = true;
+                    }
                 }
             }
         }
