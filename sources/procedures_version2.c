@@ -55,12 +55,11 @@ void initialiserCandidats(t_grille2 grille)
     {
         for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)
         {
-            grille[numLigne][numCol].nbCandidats = 0;
             if (grille[numLigne][numCol].valeur == 0)
             {
                 for (int i = 0; i < TAILLE_GRILLE; i++)
                 {
-                    grille[numLigne][numCol].candidats[i] = 0;
+                    grille[numLigne][numCol].candidats[i] = false;
                 }
                 for (int candidat = 1; candidat <= TAILLE_GRILLE; candidat++)
                 {
@@ -95,48 +94,34 @@ int getNbCaseVides(t_grille2 grille)
 }
 
 
-void ajouterCandidat(t_case1 *laCase, int valeur)
+void ajouterCandidat(t_case2 *laCase, int valeur)
 {
-    laCase->candidats[laCase->nbCandidats] = valeur;
-    laCase->nbCandidats++;
+    laCase->candidats[valeur] = true;
 }
 
 
-void retirerCandidat(t_case1 *laCase, int valeur)
+void retirerCandidat(t_case2 *laCase, int valeur)
 {
-    int i = 0;
-    while ((laCase->candidats[i] != valeur) && (i < TAILLE_GRILLE))
+    laCase->candidats[valeur] = false;
+}
+
+
+void retirerTousLesCandidat(t_case2 *laCase)
+{
+    for (int i = 1; i <= TAILLE_GRILLE; i++)
     {
-        i++;
-    }
-    if (i < TAILLE_GRILLE)
-    {
-        while (i < TAILLE_GRILLE - 1)
-        {
-            laCase->candidats[i] = laCase->candidats[i + 1];
-            i++;
-        }
-        laCase->nbCandidats--;
+        laCase->candidats[i] = false;
     }
 }
 
 
-void retirerTousLesCandidat(t_case1 *laCase)
-{
-    while (nbCandidats(*laCase) > 0)
-    {
-        retirerCandidat(laCase, laCase->candidats[0]);
-    }
-}
-
-
-bool estCandidat(t_case1 laCase, int valeur)
+bool estCandidat(t_case2 laCase, int valeur)
 {
     bool _estCadidat = false;
     int i = 0;
     while (!_estCadidat && (i < TAILLE_GRILLE))
     {
-        if (laCase.candidats[i] == valeur)
+        if (laCase.candidats[i])
         {
             _estCadidat = true;
         }
@@ -146,9 +131,17 @@ bool estCandidat(t_case1 laCase, int valeur)
 }
 
 
-int nbCandidats(t_case1 laCase)
+int getNbCandidats(t_case2 laCase)
 {
-    return laCase.nbCandidats;
+    int nbCandidats = 0;
+    for (int i = 1; i <= TAILLE_GRILLE; i++)
+    {
+        if (laCase.candidats[i])
+        {
+            nbCandidats++;
+        }
+    }
+    return nbCandidats;
 }
 
 

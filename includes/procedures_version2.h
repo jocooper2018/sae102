@@ -13,7 +13,7 @@
     void retirerCandidat(t_case2 *laCase, int valeur);
     void retirerTousLesCandidat(t_case2 *laCase);
     bool estCandidat(t_case2 laCase, int valeur);
-    int nbCandidats(t_case2 laCase);
+    int getNbCandidats(t_case2 laCase);
     void afficherGrille(t_grille2 grille);
     bool possible(t_grille2 grille, int numLigne, int numColone, int valeur);
 
