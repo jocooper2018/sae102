@@ -1,5 +1,5 @@
-#ifndef TECNIQUE_V1_H
-    #define TECNIQUE_V1_H
+#ifndef TECNIQUE_V2_H
+    #define TECNIQUE_V2_H
 
     #include "types2.h"
 

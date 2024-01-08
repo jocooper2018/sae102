@@ -1,5 +1,5 @@
-#ifndef PROCEDURES1_H
-    #define PROCEDURES1_H
+#ifndef PROCEDURES2_H
+    #define PROCEDURES2_H
 
     #include <stdbool.h>
 

@@ -1,5 +1,5 @@
-#ifndef TYPES1_H
-    #define TYPES1_H
+#ifndef TYPES2_H
+    #define TYPES2_H
 
     #include "defines.h"
 
