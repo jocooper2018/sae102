@@ -55,6 +55,15 @@ int main()
     printf("%d cases vides\n", nbCasesVide);
     printf("Temps : %f s\n", duree);
 
+    if (testGrille(grille))
+    {
+        printf("Grille rempie sans erreurs.\n");
+    }
+    else
+    {
+        printf("Une erreur s'est produite lors du remplissage de la grille.\n");
+    }
+
     return EXIT_SUCCESS;
 }
 

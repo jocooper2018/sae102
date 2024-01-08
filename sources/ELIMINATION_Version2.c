@@ -7,6 +7,7 @@
 #include "../includes/types2.h"
 #include "../includes/procedures_version2.h"
 #include "../includes/techniques_version2.h"
+#include "../includes/tests_version2.h"
 
 
 int main()
@@ -53,6 +54,15 @@ int main()
     afficherGrille(grille);
     printf("%d cases vides\n", nbCasesVide);
     printf("Temps : %.3f s\n", duree);
+
+    if (testGrille(grille))
+    {
+        printf("Grille rempie sans erreurs.\n");
+    }
+    else
+    {
+        printf("Une erreur s'est produite lors du remplissage de la grille.\n");
+    }
 
     return EXIT_SUCCESS;
 }
