@@ -3,10 +3,10 @@
 
 #include "../includes/defines.h"
 #include "../includes/types1.h"
-#include "../includes/tests_version1.h"
+#include "../includes/tests_version2.h"
 
 
-bool testLigne(t_grille1 grille, int numLigne)
+bool testLigne(t_grille2 grille, int numLigne)
 {
     bool ok;
     int valeur;
@@ -38,7 +38,7 @@ bool testLigne(t_grille1 grille, int numLigne)
 }
 
 
-bool testColonne(t_grille1 grille, int numCol)
+bool testColonne(t_grille2 grille, int numCol)
 {
     bool ok;
     int valeur;
@@ -70,7 +70,7 @@ bool testColonne(t_grille1 grille, int numCol)
 }
 
 
-bool testBlock(t_grille1 grille, int numLigne, int numCol)
+bool testBlock(t_grille2 grille, int numLigne, int numCol)
 {
     bool ok = true;
     int valeur;
@@ -109,7 +109,7 @@ bool testBlock(t_grille1 grille, int numLigne, int numCol)
 }
 
 
-bool testGrille(t_grille1 grille)
+bool testGrille(t_grille2 grille)
 {
     bool ok = true;
     int i, j;
