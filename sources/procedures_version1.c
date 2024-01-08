@@ -2,107 +2,12 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define TAILLE_SOUS_GRILLE 3
-#define TAILLE_GRILLE (TAILLE_SOUS_GRILLE*TAILLE_SOUS_GRILLE)
-#define NBR_SOUS_GRILLE TAILLE_SOUS_GRILLE
-
-typedef struct
-{
-    int valeur;
-    int candidats[TAILLE_GRILLE];
-    int nbCandidats;
-} t_case1;
-
-typedef t_case1 t_grille[TAILLE_GRILLE][TAILLE_GRILLE];
-
-bool chargerGrille(t_grille grille);
-void initialiserCandidats(t_grille grille);
-int getNbCaseVides(t_grille grille);
-void ajouterCandidat(t_case1 *laCase, int valeur);
-void retirerCandidat(t_case1 laCase, int valeur);
-bool estCandidat(t_case1 laCase, int valeur);
-int nbCandidats(t_case1 laCase);
-void afficherGrille(t_grille grille);
-bool possible(t_grille grille, int numLigne, int numColone, int valeur);
+#include "../includes/defines.h"
+#include "../includes/types1.h"
+#include "../includes/procedures_version1.h"
 
 
-int main()
-{
-    t_grille grille;
-    int nbCasesVide;
-    bool progression = true;
-
-    bool grilleCharge = false;
-    while (!grilleCharge)
-    {
-        grilleCharge = chargerGrille(grille);
-    }
-
-    afficherGrille(grille);
-
-    nbCasesVide = getNbCaseVides(grille);
-    printf("%d cases vides\n", nbCasesVide);
-
-    initialiserCandidats(grille);
-
-    while ((nbCasesVide > 0) && progression)
-    {
-        progression = false;
-
-        // technique du singleton nu
-        for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
-        {
-            for (int numCol = 0; numCol <TAILLE_GRILLE; numCol++)
-            {
-                if ((grille[numLigne][numCol].valeur == 0) &&
-                    grille[numLigne][numCol].nbCandidats == 1)
-                {
-
-                    grille[numLigne][numCol].valeur = grille[numLigne][numCol].candidats[0];
-                    printf("%d\n", grille[numLigne][numCol].candidats[0]);
-                    for (int i = 0; i < TAILLE_GRILLE; i++)
-                    {
-                        retirerCandidat(grille[numLigne][i], grille[numLigne][numCol].valeur);
-                        retirerCandidat(grille[i][numCol], grille[numLigne][numCol].valeur);
-                    }
-                    int i, j;
-                    int iMax, jMax;
-                    i = (numLigne / NBR_SOUS_GRILLE) * NBR_SOUS_GRILLE;
-                    iMax = i + TAILLE_SOUS_GRILLE;
-                    while (i < iMax)
-                    {
-                        j = (numCol / NBR_SOUS_GRILLE) * NBR_SOUS_GRILLE;
-                        jMax = j + TAILLE_SOUS_GRILLE;
-                        while (j < jMax)
-                        {
-                            retirerCandidat(grille[i][j], grille[numLigne][numCol].valeur);
-                            j++;
-                        }
-                        i++;
-                    }
-                    nbCasesVide--;
-                    progression = true;
-                }
-            }
-        }
-        if (progression)
-        {
-            printf("true\n");
-        }
-        else
-        {
-            printf("false\n");
-        }
-    }
-
-    afficherGrille(grille);
-    printf("%d cases vides\n", nbCasesVide);
-
-    return EXIT_SUCCESS;
-}
-
-
-bool chargerGrille(t_grille grille)
+bool chargerGrille(t_grille1 grille)
 {
     bool fileLoadSuccess;
     int grilleTmp[TAILLE_GRILLE][TAILLE_GRILLE];
@@ -117,13 +22,11 @@ bool chargerGrille(t_grille grille)
     if (f == NULL)
     {
         printf("\n ERREUR sur le fichier %s\n", nomFichier);
-        fclose(f);
         fileLoadSuccess = false;
     } 
     else 
     {
         fread(grilleTmp, sizeof(int), TAILLE_GRILLE*TAILLE_GRILLE, f);
-        fclose(f);
         fileLoadSuccess = true;
 
         for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
@@ -134,12 +37,19 @@ bool chargerGrille(t_grille grille)
             }
         }
     }
+    /*
+    if (!feof(f))
+    {
+        fileLoadSuccess = false;
+    }
+    */
+    fclose(f);
 
     return fileLoadSuccess;
 }
 
 
-void initialiserCandidats(t_grille grille)
+void initialiserCandidats(t_grille1 grille)
 {
     for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
     {
@@ -148,6 +58,10 @@ void initialiserCandidats(t_grille grille)
             grille[numLigne][numCol].nbCandidats = 0;
             if (grille[numLigne][numCol].valeur == 0)
             {
+                for (int i = 0; i < TAILLE_GRILLE; i++)
+                {
+                    grille[numLigne][numCol].candidats[i] = 0;
+                }
                 for (int candidat = 1; candidat <= TAILLE_GRILLE; candidat++)
                 {
                     if (possible(grille, numLigne, numCol, candidat))
@@ -162,7 +76,7 @@ void initialiserCandidats(t_grille grille)
 }
 
 
-int getNbCaseVides(t_grille grille)
+int getNbCaseVides(t_grille1 grille)
 {
     int nbCaseVides = 0;
 
@@ -183,15 +97,15 @@ int getNbCaseVides(t_grille grille)
 
 void ajouterCandidat(t_case1 *laCase, int valeur)
 {
-    laCase->nbCandidats++;
     laCase->candidats[laCase->nbCandidats] = valeur;
+    laCase->nbCandidats++;
 }
 
 
-void retirerCandidat(t_case1 laCase, int valeur)
+void retirerCandidat(t_case1 *laCase, int valeur)
 {
     int i = 0;
-    while ((laCase.candidats[i] != valeur) && (i < TAILLE_GRILLE))
+    while ((laCase->candidats[i] != valeur) && (i < TAILLE_GRILLE))
     {
         i++;
     }
@@ -199,10 +113,19 @@ void retirerCandidat(t_case1 laCase, int valeur)
     {
         while (i < TAILLE_GRILLE - 1)
         {
-            laCase.candidats[i] = laCase.candidats[i + 1];
+            laCase->candidats[i] = laCase->candidats[i + 1];
             i++;
         }
-        laCase.nbCandidats--;
+        laCase->nbCandidats--;
+    }
+}
+
+
+void retirerTousLesCandidat(t_case1 *laCase)
+{
+    while (nbCandidats(*laCase) > 0)
+    {
+        retirerCandidat(laCase, laCase->candidats[0]);
     }
 }
 
@@ -230,11 +153,11 @@ int nbCandidats(t_case1 laCase)
 
 
 /**
- * @fn void afficherGrille(t_grille grille)
- * @param grille `t_grille` Grille a afficher.
+ * @fn void afficherGrille(t_grille1 grille)
+ * @param grille `t_grille1` Grille a afficher.
  * @brief Affiche la grille passe en parametre.
 */
-void afficherGrille(t_grille grille)
+void afficherGrille(t_grille1 grille)
 {
     // printf("     1  2  3   4  5  6   7  8  9\n");
     printf("   ");
@@ -296,8 +219,8 @@ void afficherGrille(t_grille grille)
 
 
 /**
- * @fn bool possible(t_grille grille, int numLigne, int numColone, int valeur)
- * @param grille `t_grille` Grille dans laquelle on veut savoir si il est 
+ * @fn bool possible(t_grille1 grille, int numLigne, int numColone, int valeur)
+ * @param grille `t_grille1` Grille dans laquelle on veut savoir si il est 
  * possible d'inserer une valeur.
  * @param numLigne `int` Numero de la ligne ou inserer une valeur.
  * @param numColone `int` Numero de la colone ou inserer une valeur.
@@ -307,7 +230,7 @@ void afficherGrille(t_grille grille)
  * @brief Permet de verifier si il est possible d'inserer une valeur a un 
  * certain emplacement d'une grille donnee sans enfreindre les regles du sudoku.
 */
-bool possible(t_grille grille, int numLigne, int numColone, int valeur)
+bool possible(t_grille1 grille, int numLigne, int numColone, int valeur)
 {
     bool peutInserer = true;
     int i, j;
