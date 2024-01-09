@@ -33,7 +33,7 @@ bool backtracking(t_grille_backtracking grille, int numeroCase)
         {
             for (int valeur = 1; valeur <= TAILLE_GRILLE; valeur++)
             {
-                if (possible())
+                if (possible(grille, ligne, colonne, valeur))
                 {
                     // Si la valeur est autorisée on l'inscrit
                     //dans la case...
@@ -163,3 +163,55 @@ void afficherGrille(t_grille_backtracking grille)
     }
     printf("+\n");
 }
+
+
+/**
+ * @fn bool possible(t_grille1 grille, int numLigne, int numColone, int valeur)
+ * @param grille `t_grille1` Grille dans laquelle on veut savoir si il est 
+ * possible d'inserer une valeur.
+ * @param numLigne `int` Numero de la ligne ou inserer une valeur.
+ * @param numColone `int` Numero de la colone ou inserer une valeur.
+ * @param valeur `int` Valeur a inserer.
+ * @return `bool` `true` si il est possible d'inserer la valeur a l'emplacement 
+ * donnee, `false` sinon.
+ * @brief Permet de verifier si il est possible d'inserer une valeur a un 
+ * certain emplacement d'une grille donnee sans enfreindre les regles du sudoku.
+*/
+bool possible(t_grille_backtracking grille, int numLigne, int numColone, int valeur)
+{
+    bool peutInserer = true;
+    int i, j;
+    int iMax, jMax;
+
+    // Verification sur la ligne et sur la colonne
+    i = 0;
+    while ((i < TAILLE_GRILLE) && peutInserer)
+    {
+        if ((grille[numLigne][i].valeur == valeur) ||
+            (grille[i][numColone].valeur == valeur))
+        {
+            peutInserer = false;
+        }
+        i++;
+    }
+    // Verification sur le groupe de 9 case
+    i = (numLigne / NBR_SOUS_GRILLE) * NBR_SOUS_GRILLE;
+    iMax = i + TAILLE_SOUS_GRILLE;
+    while ((i < iMax) && peutInserer)
+    {
+        j = (numColone / NBR_SOUS_GRILLE) * NBR_SOUS_GRILLE;
+        jMax = j + TAILLE_SOUS_GRILLE;
+        while ((j < jMax) && peutInserer)
+        {
+            if (grille[i][j].valeur == valeur)
+            {
+                peutInserer = false;
+            }
+            j++;
+        }
+        i++;
+    }
+
+    return peutInserer;
+}
+
