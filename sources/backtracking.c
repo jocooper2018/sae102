@@ -28,7 +28,7 @@ int main()
     duree = (double) (clockFin - clockDebut) / CLOCKS_PER_SEC;
 
     afficherGrille(grille);
-    printf("Temps : %f s\n", duree);
+    printf("Temps : %.3f s\n", duree);
 
     if (testGrille(grille))
     {

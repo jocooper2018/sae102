@@ -53,7 +53,7 @@ int main()
 
     afficherGrille(grille);
     printf("%d cases vides\n", nbCasesVide);
-    printf("Temps : %f s\n", duree);
+    printf("Temps : %.3f s\n", duree);
 
     if (testGrille(grille))
     {
