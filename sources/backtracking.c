@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include <time.h>
 
+#include "../includes/types_backtracking.h"
+
 
 int main()
 {
