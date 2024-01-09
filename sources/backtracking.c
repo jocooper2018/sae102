@@ -5,6 +5,7 @@
 
 #include "../includes/types_backtracking.h"
 #include "../includes/procedures_backtracking.h"
+#include "../includes/tests_backtracking.h"
 
 
 int main()
