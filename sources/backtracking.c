@@ -11,7 +11,6 @@
 int main()
 {
     t_grille_backtracking grille;
-    int nbCasesVide;
     clock_t clockDebut, clockFin;
     double duree;
 
@@ -23,18 +22,12 @@ int main()
 
     afficherGrille(grille);
 
-    nbCasesVide = getNbCaseVides(grille);
-    printf("%d cases vides\n", nbCasesVide);
-
-    initialiserCandidats(grille);
-
     clockDebut = clock();
     backtracking(grille, 0);
     clockFin = clock();
     duree = (double) (clockFin - clockDebut) / CLOCKS_PER_SEC;
 
     afficherGrille(grille);
-    printf("%d cases vides\n", nbCasesVide);
     printf("Temps : %f s\n", duree);
 
     if (testGrille(grille))
