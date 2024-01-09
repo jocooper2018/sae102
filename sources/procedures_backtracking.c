@@ -107,14 +107,14 @@ bool chargerGrille(t_grille_backtracking grille)
 void afficherGrille(t_grille_backtracking grille)
 {
     // printf("     1  2  3   4  5  6   7  8  9\n");
-    printf("   ");
+    printf("    ");
     for (int i = 0; i < TAILLE_GRILLE; i++)
     {
         if (i % TAILLE_SOUS_GRILLE == 0)
         {
             printf(" ");
         }
-        printf(" %d ", i+1);
+        printf(" %2d ", i+1);
     }
     printf("\n");
 
@@ -123,18 +123,18 @@ void afficherGrille(t_grille_backtracking grille)
         if (i % TAILLE_SOUS_GRILLE == 0)
         {
             // printf("   +---------+---------+---------+\n");
-            printf("   ");
+            printf("    ");
             for (int j = 0; j < TAILLE_GRILLE; j++)
             {
                 if (j % TAILLE_SOUS_GRILLE == 0)
                 {
                     printf("+");
                 }
-                printf("---");
+                printf("----");
             }
             printf("+\n");
         }
-        printf("%d  ", i+1);
+        printf("%2d  ", i+1);
         for (int j = 0 ; j < TAILLE_GRILLE ; j++)
         {
             if (j % TAILLE_SOUS_GRILLE == 0)
@@ -143,23 +143,23 @@ void afficherGrille(t_grille_backtracking grille)
             }
             if (grille[i][j].valeur == 0)
             {
-                printf(" . ");
+                printf("  . ");
             }
             else
             {
-                printf(" %d ", grille[i][j].valeur);
+                printf(" %2d ", grille[i][j].valeur);
             }
         }
         printf("|\n");
     }
-    printf("   ");
+    printf("    ");
     for (int j = 0; j < TAILLE_GRILLE; j++)
     {
         if (j % TAILLE_SOUS_GRILLE == 0)
         {
             printf("+");
         }
-        printf("---");
+        printf("----");
     }
     printf("+\n");
 }

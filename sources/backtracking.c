@@ -13,6 +13,9 @@ int main()
     t_grille_backtracking grille;
     clock_t clockDebut, clockFin;
     double duree;
+    double secondes;
+    int nbMinutes;
+    int nbHeures;
 
     bool grilleCharge = false;
     while (!grilleCharge)
@@ -27,8 +30,26 @@ int main()
     clockFin = clock();
     duree = (double) (clockFin - clockDebut) / CLOCKS_PER_SEC;
 
+    secondes = duree;
+    nbMinutes = duree / 60;
+    nbHeures = nbMinutes / 60;
+    while (secondes > 60)
+    {
+        secondes -= 60;
+    }
+    nbMinutes %= 60;
+
     afficherGrille(grille);
-    printf("Temps : %.3f s\n", duree);
+    printf("Temps :");
+    if (nbHeures > 0)
+    {
+        printf(" %d h", nbHeures);
+    }
+    if (nbMinutes > 0)
+    {
+        printf(" %d m", nbMinutes);
+    }
+    printf(" %.3f s\n", secondes);
 
     if (testGrille(grille))
     {
