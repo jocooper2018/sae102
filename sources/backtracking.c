@@ -8,6 +8,42 @@
 
 int main()
 {
+    t_grille_backtracking grille;
+    int nbCasesVide;
+    clock_t clockDebut, clockFin;
+    double duree;
+
+    bool grilleCharge = false;
+    while (!grilleCharge)
+    {
+        grilleCharge = chargerGrille(grille);
+    }
+
+    afficherGrille(grille);
+
+    nbCasesVide = getNbCaseVides(grille);
+    printf("%d cases vides\n", nbCasesVide);
+
+    initialiserCandidats(grille);
+
+    clockDebut = clock();
+    backtracking(grille, 0);
+    clockFin = clock();
+    duree = (double) (clockFin - clockDebut) / CLOCKS_PER_SEC;
+
+    afficherGrille(grille);
+    printf("%d cases vides\n", nbCasesVide);
+    printf("Temps : %f s\n", duree);
+
+    if (testGrille(grille))
+    {
+        printf("Grille rempie sans erreurs.\n");
+    }
+    else
+    {
+        printf("Une erreur s'est produite lors du remplissage de la grille.\n");
+    }
+
     return EXIT_SUCCESS;
 }
 
@@ -41,8 +77,11 @@ bool backtracking(t_grille_backtracking grille, int numeroCase)
             {
                 if (possible())
                 {
+                    // Si la valeur est autorisée on l'inscrit
+                    //dans la case...
                     grille[ligne][colonne].valeur = valeur;
-
+                    // ... et on passe à la suivante : appel récursif
+                    // pour voir si ce choix est bon par la suite
                     if (backtracking(grille, numeroCase + 1))
                     {
                         result = true;

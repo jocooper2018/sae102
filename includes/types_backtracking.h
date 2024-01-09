@@ -9,7 +9,6 @@
     typedef struct
     {
         int valeur;
-        bool depart;
     } t_case_backtracking;
 
     typedef t_case_backtracking t_grille_backtracking[TAILLE_GRILLE][TAILLE_GRILLE];
