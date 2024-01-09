@@ -8,6 +8,7 @@
 
     bool backtracking(t_grille_backtracking grille, int numeroCase);
     bool chargerGrille(t_grille_backtracking grille);
+    void afficherGrille(t_grille_backtracking grille);
 
 #endif
 

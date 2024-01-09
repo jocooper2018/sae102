@@ -98,3 +98,68 @@ bool chargerGrille(t_grille_backtracking grille)
     return fileLoadSuccess;
 }
 
+
+/**
+ * @fn void afficherGrille(t_grille1 grille)
+ * @param grille `t_grille_backtracking` Grille a afficher.
+ * @brief Affiche la grille passe en parametre.
+*/
+void afficherGrille(t_grille_backtracking grille)
+{
+    // printf("     1  2  3   4  5  6   7  8  9\n");
+    printf("   ");
+    for (int i = 0; i < TAILLE_GRILLE; i++)
+    {
+        if (i % TAILLE_SOUS_GRILLE == 0)
+        {
+            printf(" ");
+        }
+        printf(" %d ", i+1);
+    }
+    printf("\n");
+
+    for (int i = 0; i < TAILLE_GRILLE; i++)
+    {
+        if (i % TAILLE_SOUS_GRILLE == 0)
+        {
+            // printf("   +---------+---------+---------+\n");
+            printf("   ");
+            for (int j = 0; j < TAILLE_GRILLE; j++)
+            {
+                if (j % TAILLE_SOUS_GRILLE == 0)
+                {
+                    printf("+");
+                }
+                printf("---");
+            }
+            printf("+\n");
+        }
+        printf("%d  ", i+1);
+        for (int j = 0 ; j < TAILLE_GRILLE ; j++)
+        {
+            if (j % TAILLE_SOUS_GRILLE == 0)
+            {
+                printf("|");
+            }
+            if (grille[i][j].valeur == 0)
+            {
+                printf(" . ");
+            }
+            else
+            {
+                printf(" %d ", grille[i][j].valeur);
+            }
+        }
+        printf("|\n");
+    }
+    printf("   ");
+    for (int j = 0; j < TAILLE_GRILLE; j++)
+    {
+        if (j % TAILLE_SOUS_GRILLE == 0)
+        {
+            printf("+");
+        }
+        printf("---");
+    }
+    printf("+\n");
+}
