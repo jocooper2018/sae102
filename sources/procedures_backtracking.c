@@ -56,3 +56,45 @@ bool backtracking(t_grille_backtracking grille, int numeroCase)
     return result;
 }
 
+
+bool chargerGrille(t_grille_backtracking grille)
+{
+    bool fileLoadSuccess;
+    int grilleTmp[TAILLE_GRILLE][TAILLE_GRILLE];
+
+    char nomFichier[30];
+    printf("Nom du fichier ? ");
+    scanf("%s", nomFichier);
+
+    FILE *f;
+    f = fopen(nomFichier, "rb");
+
+    if (f == NULL)
+    {
+        printf("\n ERREUR sur le fichier %s\n", nomFichier);
+        fileLoadSuccess = false;
+    } 
+    else 
+    {
+        fread(grilleTmp, sizeof(int), TAILLE_GRILLE*TAILLE_GRILLE, f);
+        fileLoadSuccess = true;
+
+        for (int numLigne = 0; numLigne < TAILLE_GRILLE; numLigne++)
+        {
+            for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)
+            {
+                grille[numLigne][numCol].valeur = grilleTmp[numLigne][numCol];
+            }
+        }
+    }
+    /*
+    if (!feof(f))
+    {
+        fileLoadSuccess = false;
+    }
+    */
+    fclose(f);
+
+    return fileLoadSuccess;
+}
+
