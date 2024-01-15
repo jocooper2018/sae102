@@ -31,14 +31,19 @@ int main()
     duree = (double) (clockFin - clockDebut) / CLOCKS_PER_SEC;
 
     secondes = duree;
-    nbMinutes = duree / 60;
-    nbHeures = nbMinutes / 60;
+    nbMinutes = 0;
+    nbHeures = 0;
     while (secondes > 60)
     {
         secondes -= 60;
+        nbMinutes++;
     }
-    nbMinutes %= 60;
-
+    while (nbMinutes > 60)
+    {
+        nbMinutes -= 60;
+        nbHeures++;
+    }
+    
     afficherGrille(grille);
     printf("Temps :");
     if (nbHeures > 0)
@@ -47,7 +52,7 @@ int main()
     }
     if (nbMinutes > 0)
     {
-        printf(" %d m", nbMinutes);
+        printf(" %d min", nbMinutes);
     }
     printf(" %.3f s\n", secondes);
 

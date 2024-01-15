@@ -17,6 +17,9 @@ int main()
     bool progression = true;
     clock_t clockDebut, clockFin;
     double duree;
+    double secondes;
+    int nbMinutes;
+    int nbHeures;
 
     bool grilleCharge = false;
     while (!grilleCharge)
@@ -51,9 +54,31 @@ int main()
     clockFin = clock();
     duree = (double) (clockFin - clockDebut) / CLOCKS_PER_SEC;
 
+    secondes = duree;
+    nbMinutes = 0;
+    nbHeures = 0;
+    while (secondes > 60)
+    {
+        secondes -= 60;
+        nbMinutes++;
+    }
+    while (nbMinutes > 60)
+    {
+        nbMinutes -= 60;
+        nbHeures++;
+    }
+    
     afficherGrille(grille);
-    printf("%d cases vides\n", nbCasesVide);
-    printf("Temps : %.3f s\n", duree);
+    printf("Temps :");
+    if (nbHeures > 0)
+    {
+        printf(" %d h", nbHeures);
+    }
+    if (nbMinutes > 0)
+    {
+        printf(" %d min", nbMinutes);
+    }
+    printf(" %.3f s\n", secondes);
 
     if (testGrille(grille))
     {
