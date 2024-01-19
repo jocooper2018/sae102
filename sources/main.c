@@ -4,15 +4,15 @@
 #include <time.h>
 
 #include "../includes/defines.h"
-#include "../includes/types1.h"
-#include "../includes/procedures_version1.h"
-#include "../includes/techniques_version1.h"
-#include "../includes/tests_version1.h"
+#include "../includes/types.h"
+#include "../includes/procedures.h"
+#include "../includes/techniques.h"
+#include "../includes/tests.h"
 
 
 int main()
 {
-    t_grille1 grille;
+    grille_t grille;
     int nbCasesVide;
     bool progression = true;
     clock_t clockDebut, clockFin;
