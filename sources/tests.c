@@ -5,7 +5,15 @@
 #include "../includes/types.h"
 #include "../includes/tests.h"
 
-
+/**
+ * @fn testLigne(grille_t grille, int numLigne)
+ * @brief Vérifie qu'il n'y a pas deux fois la même 
+ * valeur dans une ligne de grille de sudoku.
+ * @param grille `grille_t` Grille de sudoku dans laquelle vérifier.
+ * @param numLigne `int` Numéro de la ligne de la grille à vérifier.
+ * @return `true` si il n'y a pas deux fois la même valeur dans la ligne, 
+ * `false` sinon.
+*/
 bool testLigne(grille_t grille, int numLigne)
 {
     bool ok;
@@ -38,6 +46,15 @@ bool testLigne(grille_t grille, int numLigne)
 }
 
 
+/**
+ * @fn testColonne(grille_t grille, int numCol)
+ * @brief Vérifie qu'il n'y a pas deux fois la même 
+ * valeur dans une colonne de grille de sudoku.
+ * @param grille `grille_t` Grille de sudoku dans laquelle vérifier.
+ * @param numCol `int` Numéro de la colonne de la grille à vérifier.
+ * @return `true` si il n'y a pas deux fois la même valeur dans la colonne, 
+ * `false` sinon.
+*/
 bool testColonne(grille_t grille, int numCol)
 {
     bool ok;
@@ -70,6 +87,16 @@ bool testColonne(grille_t grille, int numCol)
 }
 
 
+/**
+ * @fn testBlock(grille_t grille, int numLigne, int numCol)
+ * @brief Vérifie qu'il n'y a pas deux fois la même 
+ * valeur dans un block de grille de sudoku.
+ * @param grille `grille_t` Grille de sudoku dans laquelle vérifier.
+ * @param numLigne `int` Numéro de la ligne de la grille à vérifier.
+ * @param numCol `int` Numéro de la colonne de la grille à vérifier.
+ * @return `true` si il n'y a pas deux fois la même valeur dans le block, 
+ * `false` sinon.
+*/
 bool testBlock(grille_t grille, int numLigne, int numCol)
 {
     bool ok = true;
@@ -109,6 +136,13 @@ bool testBlock(grille_t grille, int numLigne, int numCol)
 }
 
 
+/**
+ * @fn testGrille(grille_t grille)
+ * @brief Vérifie qu'une grille de sudoku respecte les règles du sudoku.
+ * @param grille `grille_t` Grille de sudoku à vérifier.
+ * @return `true` si la grille respecte les règles du sudoku, 
+ * `false` sinon.
+*/
 bool testGrille(grille_t grille)
 {
     bool ok = true;
