@@ -115,13 +115,13 @@ void retirerTousLesCandidat(case_t *laCase)
 }
 
 
-bool estCandidat(case_t laCase, int valeur)
+bool estCandidat(case_t *laCase, int valeur)
 {
     bool _estCadidat = false;
     int i = 0;
     while (!_estCadidat && (i < TAILLE_GRILLE))
     {
-        if (laCase.c_candidats[i])
+        if (laCase->c_candidats[i])
         {
             _estCadidat = true;
         }
@@ -131,12 +131,12 @@ bool estCandidat(case_t laCase, int valeur)
 }
 
 
-int getNbCandidats(case_t laCase)
+int getNbCandidats(case_t *laCase)
 {
     int nbCandidats = 0;
     for (int i = 1; i <= TAILLE_GRILLE; i++)
     {
-        if (laCase.c_candidats[i])
+        if (laCase->c_candidats[i])
         {
             nbCandidats++;
         }
