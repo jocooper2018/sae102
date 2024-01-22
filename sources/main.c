@@ -41,16 +41,8 @@ int main()
 
         singletonNu(grille, &nbCasesVide, &progression);
         singletonCache(grille, &nbCasesVide, &progression);
-
-        if (progression)
-        {
-            printf("true\n");
-        }
-        else
-        {
-            printf("false\n");
-        }
     }
+    backtracking(grille, 0);
     clockFin = clock();
     duree = (double) (clockFin - clockDebut) / CLOCKS_PER_SEC;
 
