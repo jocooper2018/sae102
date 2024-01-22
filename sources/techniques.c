@@ -105,7 +105,7 @@ void singletonNu(grille_t grille, int *nbCasesVide, bool *progression)
         for (int numCol = 0; numCol < TAILLE_GRILLE; numCol++)
         {
             if ((grille[numLigne][numCol].c_valeur == 0) &&
-                (getNbCandidats(grille[numLigne][numCol]) == 1))
+                (getNbCandidats(&grille[numLigne][numCol]) == 1))
             {
                 int candidat = 1;
                 bool trouve = false;
