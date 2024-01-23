@@ -68,8 +68,6 @@ int nbOccurenceCandidatBlock(grille_t grille, int numLigne, int numCol, int cand
 
 void accepterCandidat(grille_t grille, int numLigne, int numCol, int candidat)
 {
-    //printf("accepterCandidat(grille, %d, %d, %d)\n", numLigne, numCol, candidat);
-
     grille[numLigne][numCol].c_valeur = candidat;
 
     retirerTousLesCandidat(&grille[numLigne][numCol]);
@@ -147,7 +145,7 @@ void singletonCache(grille_t grille, int *nbCasesVide, bool *progression)
                 {
                     if ((nbOccurenceCandidatLigne(grille, numLigne, numCandidat) == 1) ||
                         (nbOccurenceCandidatColonne(grille, numCol, numCandidat) == 1) ||
-                        (nbOccurenceCandidatBlock(grille, numLigne, numCol, numCandidat == 1))/**/)
+                        (nbOccurenceCandidatBlock(grille, numLigne, numCol, numCandidat) == 1)/**/)
                     {
                         accepterCandidat(grille, numLigne, numCol, numCandidat);
                         (*nbCasesVide)--;

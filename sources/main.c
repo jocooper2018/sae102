@@ -27,14 +27,14 @@ int main()
         grilleCharge = chargerGrille(grille);
     }
 
-    afficherGrille(grille);
+    clockDebut = clock();
 
+    printf("Grille de depart\n");
     nbCasesVide = getNbCaseVides(grille);
     printf("%d cases vides\n", nbCasesVide);
+    afficherGrille(grille);
 
     initialiserCandidats(grille);
-
-    clockDebut = clock();
     while ((nbCasesVide > 0) && progression)
     {
         progression = false;
@@ -42,7 +42,18 @@ int main()
         singletonNu(grille, &nbCasesVide, &progression);
         singletonCache(grille, &nbCasesVide, &progression);
     }
+    printf("Grille apres techniques\n");
+    nbCasesVide = getNbCaseVides(grille);
+    printf("%d cases vides\n", nbCasesVide);
+    afficherGrille(grille);
+   
     backtracking(grille, 0);
+
+    printf("Grille apres backtracking\n");
+    nbCasesVide = getNbCaseVides(grille);
+    printf("%d cases vides\n", nbCasesVide);
+    afficherGrille(grille);
+    
     clockFin = clock();
     duree = (double) (clockFin - clockDebut) / CLOCKS_PER_SEC;
 
@@ -60,7 +71,6 @@ int main()
         nbHeures++;
     }
     
-    afficherGrille(grille);
     printf("Temps :");
     if (nbHeures > 0)
     {
