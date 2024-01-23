@@ -18,6 +18,7 @@ bool testLigne(t_grille2 grille, int numLigne)
     
     while (ok && (valeur <= TAILLE_GRILLE))
     {
+        nbOcurencesValeur = 0;
         numCol = 0;
         while (ok && (numCol < TAILLE_GRILLE))
         {
@@ -50,6 +51,7 @@ bool testColonne(t_grille2 grille, int numCol)
     
     while (ok && (valeur <= TAILLE_GRILLE))
     {
+        nbOcurencesValeur = 0;
         numLigne = 0;
         while (ok && (numLigne < TAILLE_GRILLE))
         {
@@ -83,6 +85,7 @@ bool testBlock(t_grille2 grille, int numLigne, int numCol)
 
     while (ok && valeur <= TAILLE_GRILLE)
     {
+        nbOcurencesValeur = 0;
         i = (numLigne / NBR_SOUS_GRILLE) * NBR_SOUS_GRILLE;
         iMax = i + TAILLE_SOUS_GRILLE;
         while (ok && i < iMax)
@@ -117,8 +120,7 @@ bool testGrille(t_grille2 grille)
     i = 0;
     while (ok && i < TAILLE_GRILLE)
     {
-        testLigne(grille, i);
-        testColonne(grille, i);
+        ok = testLigne(grille, i) && testColonne(grille, i);
         i++;
     }
     i = 0;
@@ -127,7 +129,7 @@ bool testGrille(t_grille2 grille)
         j = 0;
         while (ok && j < NBR_SOUS_GRILLE)
         {
-            testBlock(grille, i * TAILLE_SOUS_GRILLE, j * TAILLE_SOUS_GRILLE);
+            ok = testBlock(grille, i * TAILLE_SOUS_GRILLE, j * TAILLE_SOUS_GRILLE);
             j++;
         }
         i++;

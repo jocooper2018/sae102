@@ -18,6 +18,7 @@ bool testLigne(t_grille_backtracking grille, int numLigne)
     
     while (ok && (valeur <= TAILLE_GRILLE))
     {
+        nbOcurencesValeur = 0;
         numCol = 0;
         while (ok && (numCol < TAILLE_GRILLE))
         {
@@ -28,6 +29,7 @@ bool testLigne(t_grille_backtracking grille, int numLigne)
             if (nbOcurencesValeur > 1)
             {
                 ok = false;
+                printf("Ligne %d : la valeur %d aparait %d fois\n", numLigne, valeur, nbOcurencesValeur);
             }
             numCol++;
         }
@@ -50,6 +52,7 @@ bool testColonne(t_grille_backtracking grille, int numCol)
     
     while (ok && (valeur <= TAILLE_GRILLE))
     {
+        nbOcurencesValeur = 0;
         numLigne = 0;
         while (ok && (numLigne < TAILLE_GRILLE))
         {
@@ -59,6 +62,7 @@ bool testColonne(t_grille_backtracking grille, int numCol)
             }
             if (nbOcurencesValeur > 1)
             {
+                printf("Colonne %d : la valeur %d aparait %d fois\n", numCol, valeur, nbOcurencesValeur);
                 ok = false;
             }
             numLigne++;
@@ -83,6 +87,7 @@ bool testBlock(t_grille_backtracking grille, int numLigne, int numCol)
 
     while (ok && valeur <= TAILLE_GRILLE)
     {
+        nbOcurencesValeur = 0;
         i = (numLigne / NBR_SOUS_GRILLE) * NBR_SOUS_GRILLE;
         iMax = i + TAILLE_SOUS_GRILLE;
         while (ok && i < iMax)
@@ -97,6 +102,7 @@ bool testBlock(t_grille_backtracking grille, int numLigne, int numCol)
                 }
                 if (nbOcurencesValeur > 1)
                 {
+                    printf("Block %d %d : la valeur %d aparait %d fois\n", numLigne / NBR_SOUS_GRILLE, numCol / NBR_SOUS_GRILLE, valeur, nbOcurencesValeur);
                     ok = false;
                 }
                 j++;
@@ -117,8 +123,7 @@ bool testGrille(t_grille_backtracking grille)
     i = 0;
     while (ok && i < TAILLE_GRILLE)
     {
-        testLigne(grille, i);
-        testColonne(grille, i);
+        ok = testLigne(grille, i) && testColonne(grille, i);
         i++;
     }
     i = 0;
@@ -127,7 +132,7 @@ bool testGrille(t_grille_backtracking grille)
         j = 0;
         while (ok && j < NBR_SOUS_GRILLE)
         {
-            testBlock(grille, i * TAILLE_SOUS_GRILLE, j * TAILLE_SOUS_GRILLE);
+            ok = testBlock(grille, i * TAILLE_SOUS_GRILLE, j * TAILLE_SOUS_GRILLE);
             j++;
         }
         i++;
